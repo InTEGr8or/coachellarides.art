@@ -7,7 +7,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   <thead>
     <tr>
       <th>Time</th>
-      {venues.map(v => <th>{v.name} (Vehicle)<br /><small>({v.capacity} seats)</small></th>)}
+      {venues.map(v => <th>{v.name}<br /><small>({v.capacity} seats)</small></th>)}
     </tr>
   </thead>
   <tbody>
