@@ -3,8 +3,13 @@ import venues from '../data/venues.json';
 const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`);
 ---
 
+---
+import venues from '../data/venues.json';
+const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`);
+---
+
 <div class="scheduler">
-  <h2>Schedule for Friday, April 17, 2026</h2>
+  <h1>Friday Rides</h1>
   <table class="scheduler-table">
     <thead>
       <tr>
@@ -24,17 +29,42 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
 </div>
 
 <style>
+  .scheduler {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    color: var(--sunset-orange);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
   .scheduler-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
   }
   .scheduler-table th, .scheduler-table td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem;
     text-align: center;
+  }
+  .scheduler-table th {
+    background: rgba(0, 0, 0, 0.2);
   }
   .signup-btn {
     cursor: pointer;
+    background: var(--sunset-orange);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.2s;
+  }
+  .signup-btn:hover {
+    transform: scale(1.05);
   }
 </style>
