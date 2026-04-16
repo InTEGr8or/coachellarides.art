@@ -13,9 +13,14 @@ import VenueTable from './VenueTable.astro';
 
 <style>
   .scheduler {
-    padding: 2rem;
+    padding: 0.5rem; /* Reduced padding on mobile */
     max-width: 1000px;
     margin: 0 auto;
+  }
+  @media (min-width: 600px) {
+    .scheduler {
+      padding: 2rem;
+    }
   }
   h1 {
     text-align: center;

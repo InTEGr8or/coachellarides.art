@@ -15,6 +15,12 @@ const { days } = Astro.props;
   const buttons = document.querySelectorAll('.tabs button');
   const heading = document.querySelector('h1');
 
+  const dates = {
+    "Fri": "4/17",
+    "Sat": "4/18",
+    "Sun": "4/19"
+  };
+
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       buttons.forEach(btn => btn.classList.remove('active'));
@@ -22,7 +28,7 @@ const { days } = Astro.props;
       
       const day = button.getAttribute('data-day');
       if (heading) {
-        heading.textContent = `Coachella Rides - ${day}`;
+        heading.textContent = `Coachella Rides - ${day} ${dates[day] || ''}`;
       }
     });
   });
