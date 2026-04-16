@@ -15,7 +15,7 @@ const slots = Array.from({ length: 18 }, (_, i) => {
   <thead>
     <tr>
       <th>Time</th>
-      {venues.map(v => <th>{v.name}<br /><small>({v.capacity} seats)</small></th>)}
+      {venues.map(v => <th>{v.name}<br /><small>up to ({v.capacity} pass)</small></th>)}
     </tr>
   </thead>
   <tbody>
