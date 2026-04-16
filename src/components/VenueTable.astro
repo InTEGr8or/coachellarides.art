@@ -77,6 +77,14 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const phoneValue = phoneMask.unmaskedValue;
+    if (phoneValue.length !== 10) {
+      statusMessage.textContent = 'Please enter a valid 10-digit phone number.';
+      statusMessage.style.color = '#cc0000';
+      return;
+    }
+
     statusMessage.textContent = 'Submitting...';
     statusMessage.style.color = 'var(--dark-charcoal)';
 
