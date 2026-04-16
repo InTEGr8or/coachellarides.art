@@ -47,6 +47,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
 
 <script>
   import { supabase } from '../lib/supabaseClient';
+  import IMask from 'imask';
 
   const modal = document.getElementById('booking-modal');
   const form = document.getElementById('booking-form');
