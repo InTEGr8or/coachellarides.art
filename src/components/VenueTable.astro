@@ -48,65 +48,67 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   import { supabase } from '../lib/supabaseClient';
   import IMask from 'imask';
 
-  const modal = document.getElementById('booking-modal');
-  const form = document.getElementById('booking-form');
-  const closeBtn = document.getElementById('close-modal');
-  const venueInput = document.getElementById('venue-input') as HTMLInputElement;
-  const timeInput = document.getElementById('time-input') as HTMLInputElement;
-  const bookingInfo = document.getElementById('booking-info');
-  const statusMessage = document.getElementById('status-message');
-  const phoneInput = document.getElementById('phone-input');
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('booking-modal');
+    const form = document.getElementById('booking-form');
+    const closeBtn = document.getElementById('close-modal');
+    const venueInput = document.getElementById('venue-input') as HTMLInputElement;
+    const timeInput = document.getElementById('time-input') as HTMLInputElement;
+    const bookingInfo = document.getElementById('booking-info');
+    const statusMessage = document.getElementById('status-message');
+    const phoneInput = document.getElementById('phone-input');
 
-  let phoneMask;
-  if (phoneInput) {
-    phoneMask = IMask(phoneInput, { mask: '(000) 000-0000' });
-  }
-
-  document.querySelectorAll('.signup-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      venueInput.value = btn.getAttribute('data-venue');
-      timeInput.value = btn.getAttribute('data-time');
-      bookingInfo.textContent = `${venueInput.value} at ${timeInput.value}`;
-      statusMessage.textContent = '';
-      modal.style.display = 'block';
-    });
-  });
-
-  closeBtn.addEventListener('click', () => modal.style.display = 'none');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const phoneValue = phoneMask ? phoneMask.unmaskedValue : '';
-    if (phoneValue.length !== 10) {
-      statusMessage.textContent = 'Please enter a valid 10-digit phone number.';
-      statusMessage.style.color = '#cc0000';
-      return;
+    let phoneMask;
+    if (phoneInput) {
+      phoneMask = IMask(phoneInput, { mask: '(000) 000-0000' });
     }
 
-    statusMessage.textContent = 'Submitting...';
-    statusMessage.style.color = 'var(--dark-charcoal)';
-
-    const formData = new FormData(form);
-    const day = document.querySelector('.tabs button.active').getAttribute('data-day');
-
-    const { error } = await supabase.from('bookings').insert({
-      name: formData.get('name'),
-      phone: phoneValue,
-      pickup_location: formData.get('pickup'),
-      day: day,
-      venue: formData.get('venue'),
-      time_slot: formData.get('time')
+    document.querySelectorAll('.signup-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        venueInput.value = btn.getAttribute('data-venue');
+        timeInput.value = btn.getAttribute('data-time');
+        bookingInfo.textContent = `${venueInput.value} at ${timeInput.value}`;
+        statusMessage.textContent = '';
+        modal.style.display = 'block';
+      });
     });
 
-    if (error) {
-      statusMessage.textContent = 'Error: ' + error.message;
-      statusMessage.style.color = '#cc0000';
-    } else {
-      statusMessage.textContent = 'Booking successful!';
-      statusMessage.style.color = 'var(--palm-green)';
-      setTimeout(() => { modal.style.display = 'none'; form.reset(); if(phoneMask) phoneMask.value = ''; }, 1500);
-    }
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const phoneValue = phoneMask ? phoneMask.unmaskedValue : '';
+      if (phoneValue.length !== 10) {
+        statusMessage.textContent = 'Please enter a valid 10-digit phone number.';
+        statusMessage.style.color = '#cc0000';
+        return;
+      }
+
+      statusMessage.textContent = 'Submitting...';
+      statusMessage.style.color = 'var(--dark-charcoal)';
+
+      const formData = new FormData(form);
+      const day = document.querySelector('.tabs button.active')?.getAttribute('data-day') || 'Fri';
+
+      const { error } = await supabase.from('bookings').insert({
+        name: formData.get('name'),
+        phone: phoneValue,
+        pickup_location: formData.get('pickup'),
+        day: day,
+        venue: formData.get('venue'),
+        time_slot: formData.get('time')
+      });
+
+      if (error) {
+        statusMessage.textContent = 'Error: ' + error.message;
+        statusMessage.style.color = '#cc0000';
+      } else {
+        statusMessage.textContent = 'Booking successful!';
+        statusMessage.style.color = 'var(--palm-green)';
+        setTimeout(() => { modal.style.display = 'none'; form.reset(); if(phoneMask) phoneMask.value = ''; }, 1500);
+      }
+    });
   });
 </script>
 
