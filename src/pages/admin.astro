@@ -56,13 +56,13 @@ import Layout from '../layouts/Layout.astro';
         <td>${b.venue}</td>
         <td>${b.time_slot}</td>
         <td>${b.pickup_location}</td>
-        <td><button data-id="${b.id}" class="submit-btn confirm-btn">Confirm</button></td>
+        <td><button data-id="${b.id}" class="action-btn">Confirm</button></td>
       </tr>
     `).join('');
   }
 
   document.getElementById('bookings-body').addEventListener('click', async (e) => {
-    if (e.target.classList.contains('confirm-btn')) {
+    if (e.target.classList.contains('action-btn')) {
       const id = e.target.getAttribute('data-id');
       const { error } = await supabase
         .from('bookings')
@@ -92,7 +92,7 @@ import Layout from '../layouts/Layout.astro';
   th { background: rgba(255, 255, 255, 0.3); }
   .signup-btn { text-decoration: none; display: inline-block; cursor: pointer; background: var(--mountain-clay); border: none; padding: 0.5rem 1rem; border-radius: 5px; color: white; font-weight: bold; }
   .signup-btn:hover { background: var(--palm-green); }
-  .submit-btn, .confirm-btn { 
+  .action-btn { 
     cursor: pointer; 
     background: var(--palm-green); 
     border: none; 
@@ -102,7 +102,7 @@ import Layout from '../layouts/Layout.astro';
     font-weight: bold; 
     transition: background 0.2s; 
   }
-  .submit-btn:hover, .confirm-btn:hover { background: var(--mountain-clay); }
+  .action-btn:hover { background: var(--mountain-clay); }
   .cancel-btn { cursor: pointer; background: #ccc; border: none; padding: 0.8rem; border-radius: 5px; margin-top: 1rem; color: var(--dark-charcoal); }
   .phone-link { color: var(--dark-charcoal); text-decoration: underline; font-family: monospace; }
 </style>
