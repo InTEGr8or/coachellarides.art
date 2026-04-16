@@ -33,8 +33,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
       <input type="hidden" name="venue" id="venue-input" />
       <input type="hidden" name="time" id="time-input" />
       <input type="text" name="name" placeholder="Name" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="tel" name="phone" placeholder="Phone" required />
+      <input type="tel" name="phone" placeholder="Phone (e.g. 123-456-7890)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
       <div class="modal-buttons">
         <button type="submit" class="signup-btn">Submit</button>
         <button type="button" id="close-modal" class="cancel-btn">Cancel</button>
@@ -73,7 +72,6 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
 
     const { error } = await supabase.from('bookings').insert({
       name: formData.get('name'),
-      email: formData.get('email'),
       phone: formData.get('phone'),
       day: day,
       venue: formData.get('venue'),
