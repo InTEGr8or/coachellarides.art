@@ -29,6 +29,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   <div class="modal-content">
     <h3>Book Ride</h3>
     <p id="booking-info" class="booking-info"></p>
+    <p id="status-message" class="status-message"></p>
     <form id="booking-form">
       <input type="hidden" name="venue" id="venue-input" />
       <input type="hidden" name="time" id="time-input" />
@@ -42,7 +43,6 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   </div>
 </div>
 
-<script src="https://unpkg.com/imask"></script>
 <script>
   import { supabase } from '../lib/supabaseClient';
 
@@ -52,20 +52,17 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   const venueInput = document.getElementById('venue-input') as HTMLInputElement;
   const timeInput = document.getElementById('time-input') as HTMLInputElement;
   const bookingInfo = document.getElementById('booking-info');
+  const statusMessage = document.getElementById('status-message');
   const phoneInput = document.getElementById('phone-input');
 
-  // Initialize Mask
-  const phoneMask = IMask(phoneInput, {
-    mask: '(000) 000-0000'
-  });
+  const phoneMask = IMask(phoneInput, { mask: '(000) 000-0000' });
 
   document.querySelectorAll('.signup-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const venue = btn.getAttribute('data-venue');
-      const time = btn.getAttribute('data-time');
-      venueInput.value = venue;
-      timeInput.value = time;
-      bookingInfo.textContent = `${venue} at ${time}`;
+      venueInput.value = btn.getAttribute('data-venue');
+      timeInput.value = btn.getAttribute('data-time');
+      bookingInfo.textContent = `${venueInput.value} at ${timeInput.value}`;
+      statusMessage.textContent = '';
       modal.style.display = 'block';
     });
   });
@@ -74,27 +71,35 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    statusMessage.textContent = 'Submitting...';
+    statusMessage.style.color = 'var(--dark-charcoal)';
+
     const formData = new FormData(form);
     const day = document.querySelector('.tabs button.active').getAttribute('data-day');
 
     const { error } = await supabase.from('bookings').insert({
       name: formData.get('name'),
-      phone: phoneMask.unmaskedValue, // Submit the raw numbers
+      phone: phoneMask.unmaskedValue,
       day: day,
       venue: formData.get('venue'),
       time_slot: formData.get('time')
     });
 
     if (error) {
-      alert('Error booking ride: ' + error.message);
+      statusMessage.textContent = 'Error: ' + error.message;
+      statusMessage.style.color = '#cc0000';
     } else {
-      alert('Booking successful!');
-      modal.style.display = 'none';
-      form.reset();
-      phoneMask.value = '';
+      statusMessage.textContent = 'Booking successful!';
+      statusMessage.style.color = 'var(--palm-green)';
+      setTimeout(() => { modal.style.display = 'none'; form.reset(); phoneMask.value = ''; }, 1500);
     }
   });
 </script>
+
+<style>
+  .status-message { font-size: 0.9rem; margin-top: 0.5rem; }
+  /* ... rest of your styles ... */
+
 
 <style>
   .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
