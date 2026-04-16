@@ -3,14 +3,15 @@ import venues from '../data/venues.json';
 const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`);
 ---
 
-<nav class="tabs">
-  <button class="active">Fri</button>
-  <button>Sat</button>
-  <button>Sun</button>
-</nav>
-
 <div class="scheduler">
-  <h1>Friday Rides</h1>
+  <h1>Coachella Rides</h1>
+  
+  <nav class="tabs">
+    <button class="active">Fri</button>
+    <button>Sat</button>
+    <button>Sun</button>
+  </nav>
+
   <table class="scheduler-table">
     <thead>
       <tr>
