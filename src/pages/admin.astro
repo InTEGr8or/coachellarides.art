@@ -45,13 +45,13 @@ import Layout from '../layouts/Layout.astro';
           <div class="field"><strong>Time:</strong> ${b.time_slot}</div>
           <div class="field"><strong>Pickup:</strong> ${b.pickup_location}</div>
         </div>
-        <button data-id="${b.id}" class="action-btn confirm-btn">Confirm</button>
+        <button data-id="${b.id}" class="action-btn">Confirm</button>
       </div>
     `).join('');
   }
 
   document.getElementById('bookings-container').addEventListener('click', async (e) => {
-    if (e.target.classList.contains('confirm-btn')) {
+    if (e.target.classList.contains('action-btn')) {
       const id = e.target.getAttribute('data-id');
       const { error } = await supabase
         .from('bookings')
