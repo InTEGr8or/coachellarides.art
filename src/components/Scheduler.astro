@@ -1,0 +1,40 @@
+---
+import venues from '../data/venues.json';
+const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`);
+---
+
+<div class="scheduler">
+  <h2>Schedule for Friday, April 17, 2026</h2>
+  <table class="scheduler-table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        {venues.map(v => <th>{v.name} <br /><small>({v.capacity} seats)</small></th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {slots.map(slot => (
+        <tr>
+          <td>{slot}</td>
+          {venues.map(v => <td><button class="signup-btn">Sign up</button></td>)}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .scheduler-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  .scheduler-table th, .scheduler-table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .signup-btn {
+    cursor: pointer;
+  }
+</style>
