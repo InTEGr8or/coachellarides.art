@@ -12,26 +12,6 @@ import VenueTable from './VenueTable.astro';
 </div>
 
 <style>
-  .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  .tabs button {
-    padding: 0.5rem 1.5rem;
-    border: none;
-    border-radius: 20px;
-    background: var(--palm-green);
-    cursor: pointer;
-    font-weight: bold;
-    color: white;
-    font-size: 2em;
-    transition: background 0.2s;
-  }
-  .tabs button.active {
-    background: var(--mountain-clay);
-  }
   .scheduler {
     padding: 2rem;
     max-width: 1000px;
@@ -40,36 +20,6 @@ import VenueTable from './VenueTable.astro';
   h1 {
     text-align: center;
     color: var(--dark-charcoal);
-  }
-  .scheduler-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 15px;
-    overflow: hidden;
-    backdrop-filter: blur(5px);
-  }
-  .scheduler-table th, .scheduler-table td {
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 0.75rem;
-    text-align: center;
-    color: var(--dark-charcoal);
-  }
-  .scheduler-table th {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  .signup-btn {
-    cursor: pointer;
-    background: var(--mountain-clay);
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    transition: background 0.2s;
-  }
-  .signup-btn:hover {
-    background: var(--palm-green);
   }
 </style>
 

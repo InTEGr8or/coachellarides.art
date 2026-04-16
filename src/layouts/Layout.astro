@@ -49,4 +49,22 @@ const { title = "Coachella Rides" } = Astro.props;
 		opacity: 0.5;
 		z-index: -1;
 	}
+
+	/* Global Button Styles */
+	.btn {
+		cursor: pointer;
+		border: none;
+		padding: 0.6rem 1rem;
+		border-radius: 5px;
+		color: white;
+		font-weight: bold;
+		transition: background 0.2s;
+		display: inline-block;
+		text-decoration: none;
+	}
+	.btn-primary { background: var(--palm-green); }
+	.btn-primary:hover { background: var(--mountain-clay); }
+	.btn-secondary { background: var(--mountain-clay); }
+	.btn-secondary:hover { background: var(--palm-green); }
+	.btn-cancel { background: #ccc; color: var(--dark-charcoal); }
 </style>
