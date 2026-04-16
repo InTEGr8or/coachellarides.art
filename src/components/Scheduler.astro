@@ -1,55 +1,17 @@
 ---
-import venues from '../data/venues.json';
-const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`);
+import TabNav from './TabNav.astro';
+import VenueTable from './VenueTable.astro';
 ---
 
 <div class="scheduler">
-  <h1>Coachella Rides</h1>
+  <h1>Fri Rides</h1>
   
-  <nav class="tabs">
-    <button class="active">Fri</button>
-    <button>Sat</button>
-    <button>Sun</button>
-  </nav>
+  <TabNav days={["Fri", "Sat", "Sun"]} />
 
-  <table class="scheduler-table">
-    <thead>
-      <tr>
-        <th>Time</th>
-        {venues.map(v => <th>{v.name} <br /><small>({v.capacity} seats)</small></th>)}
-      </tr>
-    </thead>
-    <tbody>
-      {slots.map(slot => (
-        <tr>
-          <td>{slot}</td>
-          {venues.map(v => <td><button class="signup-btn">Book</button></td>)}
-        </tr>
-      ))}
-    </tbody>
-  </table>
+  <VenueTable />
 </div>
 
 <style>
-  .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  .tabs button {
-    padding: 0.5rem 1.5rem;
-    border: none;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    font-weight: bold;
-    color: #033;
-    font-size: 2em;
-  }
-  .tabs button.active {
-    background: rgba(255, 255, 255, 0.6);
-  }
   .scheduler {
     padding: 2rem;
     max-width: 1000px;
@@ -58,35 +20,5 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   h1 {
     text-align: center;
     color: #033;
-  }
-  .scheduler-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    overflow: hidden;
-    backdrop-filter: blur(5px);
-  }
-  .scheduler-table th, .scheduler-table td {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 0.75rem;
-    text-align: center;
-    color: #033;
-  }
-  .scheduler-table th {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  .signup-btn {
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 5px;
-    color: #033;
-    font-weight: bold;
-    transition: background 0.2s;
-  }
-  .signup-btn:hover {
-    background: rgba(255, 255, 255, 0.7);
   }
 </style>

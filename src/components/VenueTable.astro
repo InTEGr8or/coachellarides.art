@@ -1,0 +1,54 @@
+---
+import venues from '../data/venues.json';
+const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`);
+---
+
+<table class="scheduler-table">
+  <thead>
+    <tr>
+      <th>Time</th>
+      {venues.map(v => <th>{v.name} <br /><small>({v.capacity} seats)</small></th>)}
+    </tr>
+  </thead>
+  <tbody>
+    {slots.map(slot => (
+      <tr>
+        <td>{slot}</td>
+        {venues.map(v => <td><button class="signup-btn">Book</button></td>)}
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  .scheduler-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+  }
+  .scheduler-table th, .scheduler-table td {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem;
+    text-align: center;
+    color: #033;
+  }
+  .scheduler-table th {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .signup-btn {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    color: #033;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  .signup-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+</style>
