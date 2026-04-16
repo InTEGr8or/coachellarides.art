@@ -1,13 +1,25 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const entry = await getEntry('info-banners', slug);
+
+if (!entry) {
+  throw new Error(`Could not find banner with slug: ${slug}`);
+}
+
+const { Content } = await entry.render();
+---
+
 <div class="info-banner">
-  <h3>1) Before the Show - Inbound rides (to North Ride Share – Lot 1D)</h3>
-  <ul>
-    <li>We pick you up</li>
-    <li>Circumnavigate the crowds (avoid the back-up – we have secrets)</li>
-  </ul>
-  <p><strong>See below for pricing and scheduling</strong></p>
+  <Content />
 </div>
 
-<style>
+<style is:global>
   .info-banner {
     background: rgba(255, 255, 255, 0.4);
     padding: 1.5rem;
@@ -16,5 +28,6 @@
     border-left: 5px solid var(--palm-green);
     color: var(--dark-charcoal);
   }
-  h3 { margin-top: 0; }
+  .info-banner h3 { margin-top: 0; }
+  .info-banner ul { padding-left: 1.5rem; }
 </style>
