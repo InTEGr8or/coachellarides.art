@@ -54,20 +54,23 @@ import Layout from '../layouts/Layout.astro';
         <td>${b.venue}</td>
         <td>${b.time_slot}</td>
         <td>${b.pickup_location}</td>
-        <td><button onclick="confirmBooking(${b.id})" class="submit-btn">Confirm</button></td>
+        <td><button data-id="${b.id}" class="submit-btn confirm-btn">Confirm</button></td>
       </tr>
     `).join('');
   }
 
-  window.confirmBooking = async (id) => {
-    const { error } = await supabase
-      .from('bookings')
-      .update({ status: 'confirmed' })
-      .eq('id', id);
+  document.getElementById('bookings-body').addEventListener('click', async (e) => {
+    if (e.target.classList.contains('confirm-btn')) {
+      const id = e.target.getAttribute('data-id');
+      const { error } = await supabase
+        .from('bookings')
+        .update({ status: 'confirmed' })
+        .eq('id', id);
 
-    if (error) console.error('Error confirming:', error.message);
-    else loadBookings();
-  };
+      if (error) console.error('Error confirming:', error.message);
+      else loadBookings();
+    }
+  });
 
   document.getElementById('logout-btn').addEventListener('click', async () => {
     await supabase.auth.signOut();
