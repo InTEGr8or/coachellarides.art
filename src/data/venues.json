@@ -1,7 +1,7 @@
 [
-  {"name": "Eleonora", "capacity": 7},
-  {"name": "Griffon", "capacity": 7},
-  {"name": "Bustard", "capacity": 7},
-  {"name": "Wheatear", "capacity": 7},
-  {"name": "Bunting", "capacity": 15}
+  {"name": "SUV 1", "capacity": 7},
+  {"name": "SUV 2", "capacity": 7},
+  {"name": "SUV 3", "capacity": 7},
+  {"name": "SUV 4", "capacity": 7},
+  {"name": "Shuttle 1", "capacity": 15}
 ]
