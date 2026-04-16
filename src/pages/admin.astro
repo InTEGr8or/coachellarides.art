@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Admin Dashboard">
+  <div class="admin-container">
+    <h1>Pending Bookings</h1>
+    <table id="bookings-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Day</th>
+          <th>Venue</th>
+          <th>Time</th>
+          <th>Pickup</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bookings-body"></tbody>
+    </table>
+    <button id="logout-btn" class="cancel-btn">Logout</button>
+  </div>
+</Layout>
+
+<script>
+  import { supabase } from '../lib/supabaseClient';
+
+  async function checkAuth() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) window.location.href = '/login';
+  }
+
+  async function loadBookings() {
+    const { data, error } = await supabase
+      .from('bookings')
+      .select('*')
+      .eq('status', 'pending');
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    const body = document.getElementById('bookings-body');
+    body.innerHTML = data.map(b => `
+      <tr>
+        <td>${b.name}</td>
+        <td>${b.phone}</td>
+        <td>${b.day}</td>
+        <td>${b.venue}</td>
+        <td>${b.time_slot}</td>
+        <td>${b.pickup_location}</td>
+        <td><button onclick="confirmBooking(${b.id})" class="submit-btn">Confirm</button></td>
+      </tr>
+    `).join('');
+  }
+
+  window.confirmBooking = async (id) => {
+    const { error } = await supabase
+      .from('bookings')
+      .update({ status: 'confirmed' })
+      .eq('id', id);
+
+    if (error) alert('Error confirming: ' + error.message);
+    else loadBookings();
+  };
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/login';
+  });
+
+  checkAuth();
+  loadBookings();
+</script>
+
+<style>
+  .admin-container { padding: 2rem; max-width: 1000px; margin: 0 auto; background: var(--desert-sand); border-radius: 15px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid var(--mountain-clay); padding: 0.5rem; text-align: center; }
+  .submit-btn { cursor: pointer; background: var(--palm-green); border: none; padding: 0.3rem 0.6rem; border-radius: 5px; color: white; }
+  .cancel-btn { cursor: pointer; background: #ccc; border: none; padding: 0.5rem; border-radius: 5px; margin-top: 1rem; }
+</style>
