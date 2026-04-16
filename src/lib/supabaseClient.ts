@@ -3,13 +3,6 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
-console.log("Supabase URL check:", supabaseUrl);
-console.log("Supabase Key check:", supabaseAnonKey);
-
-if (!supabaseUrl) {
-  console.error("CRITICAL: PUBLIC_SUPABASE_URL is not defined in import.meta.env");
-}
-
 // Use a safe storage wrapper to prevent crashes in Incognito mode
 const customStorage = {
   getItem: (key) => {

@@ -1,11 +1,14 @@
 ---
 import TabNav from './TabNav.astro';
 import VenueTable from './VenueTable.astro';
+import InfoBanner from './InfoBanner.astro';
 ---
 
 <div class="scheduler">
   <h1>Coachella Rides</h1>
   
+  <InfoBanner />
+
   <TabNav days={["Fri", "Sat", "Sun"]} />
 
   <VenueTable />
