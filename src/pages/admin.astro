@@ -10,58 +10,31 @@ import Layout from '../layouts/Layout.astro';
     </div>
     <div class="table-wrapper">
       <table id="bookings-table">
-
         <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Day</th>
-          <th>Vehicle</th>
-          <th>Time</th>
-          <th>Pickup</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Day</th>
+            <th>Vehicle</th>
+            <th>Time</th>
+            <th>Pickup</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookings-body"></tbody>
+      </table>
+    </div>
+    <button id="logout-btn" class="btn btn-cancel">Logout</button>
+  </div>
+</Layout>
 
-      <tbody id="bookings-body"></tbody>
-    </table>
-...
-  window.confirmBooking = async (id, venue, time_slot, day) => {
-    // 1. Confirm the selected booking
-    const { error: confirmError } = await supabase
-      .from('bookings')
-      .update({ status: 'confirmed' })
-      .eq('id', id);
+<script>
+  import { supabase } from '../lib/supabaseClient';
 
-    // 2. Reject all other pending bookings for the same vehicle, time, and day
-    const { error: rejectError } = await supabase
-      .from('bookings')
-      .update({ status: 'rejected' })
-      .eq('venue', venue)
-      .eq('time_slot', time_slot)
-      .eq('day', day)
-      .eq('status', 'pending')
-      .neq('id', id);
-
-    if (confirmError || rejectError) {
-      console.error('Error:', confirmError || rejectError);
-      alert('Error updating booking status.');
-    } else {
-      loadBookings();
-    }
-  };
-...
-        <td>${b.day}</td>
-        <td>${b.venue}</td>
-        <td>${b.time_slot}</td>
-        <td>${b.pickup_location}</td>
-        <td>
-          ${b.status === 'pending' 
-            ? `<button onclick="confirmBooking(${b.id}, '${b.venue}', '${b.time_slot}', '${b.day}')" class="btn btn-primary action-btn">Confirm</button>`
-            : `<span class="status-${b.status}">${b.status}</span>`}
-        </td>
-      </tr>
-
+  async function checkAuth() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) window.location.href = '/login';
+  }
 
   async function loadBookings() {
     const { data, error } = await supabase
@@ -88,21 +61,44 @@ import Layout from '../layouts/Layout.astro';
         <td>${b.venue}</td>
         <td>${b.time_slot}</td>
         <td>${b.pickup_location}</td>
-        <td><button data-id="${b.id}" class="btn btn-primary action-btn">Confirm</button></td>
+        <td>
+          ${b.status === 'pending' 
+            ? `<button data-id="${b.id}" data-venue="${b.venue}" data-time="${b.time_slot}" data-day="${b.day}" class="btn btn-primary action-btn confirm-btn">Confirm</button>`
+            : `<span class="status-${b.status}">${b.status}</span>`}
+        </td>
       </tr>
     `).join('');
   }
 
   document.getElementById('bookings-body').addEventListener('click', async (e) => {
-    if (e.target.classList.contains('action-btn')) {
+    if (e.target.classList.contains('confirm-btn')) {
       const id = e.target.getAttribute('data-id');
-      const { error } = await supabase
+      const venue = e.target.getAttribute('data-venue');
+      const time = e.target.getAttribute('data-time');
+      const day = e.target.getAttribute('data-day');
+
+      // 1. Confirm the selected booking
+      const { error: confirmError } = await supabase
         .from('bookings')
         .update({ status: 'confirmed' })
         .eq('id', id);
 
-      if (error) console.error('Error confirming:', error.message);
-      else loadBookings();
+      // 2. Reject all other pending bookings for the same vehicle, time, and day
+      const { error: rejectError } = await supabase
+        .from('bookings')
+        .update({ status: 'rejected' })
+        .eq('venue', venue)
+        .eq('time_slot', time)
+        .eq('day', day)
+        .eq('status', 'pending')
+        .neq('id', id);
+
+      if (confirmError || rejectError) {
+        console.error('Error:', confirmError || rejectError);
+        alert('Error updating booking status.');
+      } else {
+        loadBookings();
+      }
     }
   });
 
@@ -126,6 +122,5 @@ import Layout from '../layouts/Layout.astro';
   .action-btn { padding: 0.4rem 0.6rem; font-size: 0.85rem; }
   .phone-link { color: var(--dark-charcoal); text-decoration: underline; font-family: monospace; }
   .status-confirmed { color: var(--palm-green); font-weight: bold; }
-  .status-rejected { color: #ccc; font-style: italic; }
+  .status-rejected { color: #555; font-style: italic; }
 </style>
-
