@@ -1,0 +1,49 @@
+---
+const { booking } = Astro.props;
+const formatPhone = (p) => p.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+---
+
+<div class="booking-card" data-id={booking.id}>
+  <div class="card-content">
+    <div class="field"><strong>Name:</strong> {booking.name}</div>
+    <div class="field"><strong>Phone:</strong> <a href={`tel:${booking.phone}`} class="phone-link">{formatPhone(booking.phone)}</a></div>
+    <div class="field"><strong>Day:</strong> {booking.day}</div>
+    <div class="field"><strong>Venue:</strong> {booking.venue}</div>
+    <div class="field"><strong>Time:</strong> {booking.time_slot}</div>
+    <div class="field"><strong>Pickup:</strong> {booking.pickup_location}</div>
+  </div>
+  <button data-id={booking.id} class="action-btn confirm-btn">Confirm</button>
+</div>
+
+<style>
+  .booking-card {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--mountain-clay);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .card-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+  .field { color: var(--dark-charcoal); }
+  .phone-link { color: var(--dark-charcoal); text-decoration: underline; font-family: monospace; }
+  .action-btn { 
+    cursor: pointer; 
+    background: var(--palm-green); 
+    border: none; 
+    padding: 0.6rem 1rem; 
+    border-radius: 5px; 
+    color: white; 
+    font-weight: bold; 
+    transition: background 0.2s; 
+  }
+  .action-btn:hover { background: var(--mountain-clay); }
+</style>
