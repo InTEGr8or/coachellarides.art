@@ -22,7 +22,7 @@ const { days } = Astro.props;
       
       const day = button.getAttribute('data-day');
       if (heading) {
-        heading.textContent = `${day} Rides`;
+        heading.textContent = `Coachella Rides - ${day}`;
       }
     });
   });
@@ -39,17 +39,17 @@ const { days } = Astro.props;
     padding: 0.5rem 1.5rem;
     border: none;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--palm-green);
     cursor: pointer;
     font-weight: bold;
-    color: #033;
+    color: white;
     font-size: 2em;
     transition: background 0.2s;
   }
   .tabs button.active {
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--mountain-clay);
   }
   .tabs button:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--mountain-clay);
   }
 </style>
