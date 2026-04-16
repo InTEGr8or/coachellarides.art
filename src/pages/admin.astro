@@ -63,7 +63,7 @@ import Layout from '../layouts/Layout.astro';
         <td>${b.pickup_location}</td>
         <td>
           ${b.status === 'pending' 
-            ? `<button data-id="${b.id}" data-venue="${b.venue}" data-time="${b.time_slot}" data-day="${b.day}" class="btn btn-primary action-btn confirm-btn">Confirm</button>`
+            ? `<button data-id="${b.id}" data-venue="${b.venue}" data-time="${b.time_slot}" data-day="${b.day}" class="btn btn-primary action-btn">Confirm</button>`
             : `<span class="status-${b.status}">${b.status}</span>`}
         </td>
       </tr>
@@ -71,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   document.getElementById('bookings-body').addEventListener('click', async (e) => {
-    if (e.target.classList.contains('confirm-btn')) {
+    if (e.target.classList.contains('action-btn')) {
       const id = e.target.getAttribute('data-id');
       const venue = e.target.getAttribute('data-venue');
       const time = e.target.getAttribute('data-time');
@@ -110,17 +110,3 @@ import Layout from '../layouts/Layout.astro';
   checkAuth();
   loadBookings();
 </script>
-
-<style>
-  .admin-container { padding: 2rem; max-width: 1000px; margin: 0 auto; background: rgba(255, 255, 255, 0.4); border-radius: 15px; backdrop-filter: blur(5px); }
-  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-  h1 { margin: 0; color: var(--dark-charcoal); }
-  .table-wrapper { overflow-x: auto; background: rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 1rem; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { border: 1px solid var(--mountain-clay); padding: 0.75rem; text-align: center; color: var(--dark-charcoal); }
-  th { background: rgba(255, 255, 255, 0.3); }
-  .action-btn { padding: 0.4rem 0.6rem; font-size: 0.85rem; }
-  .phone-link { color: var(--dark-charcoal); text-decoration: underline; font-family: monospace; }
-  .status-confirmed { color: var(--palm-green); font-weight: bold; }
-  .status-rejected { color: #555; font-style: italic; }
-</style>
