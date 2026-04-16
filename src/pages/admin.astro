@@ -45,11 +45,13 @@ import Layout from '../layouts/Layout.astro';
       return;
     }
 
+    const formatPhone = (p) => p.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+
     const body = document.getElementById('bookings-body');
     body.innerHTML = data.map(b => `
       <tr>
         <td>${b.name}</td>
-        <td><a href="tel:${b.phone}" class="phone-link">${b.phone}</a></td>
+        <td><a href="tel:${b.phone}" class="phone-link">${formatPhone(b.phone)}</a></td>
         <td>${b.day}</td>
         <td>${b.venue}</td>
         <td>${b.time_slot}</td>
@@ -90,8 +92,17 @@ import Layout from '../layouts/Layout.astro';
   th { background: rgba(255, 255, 255, 0.3); }
   .signup-btn { text-decoration: none; display: inline-block; cursor: pointer; background: var(--mountain-clay); border: none; padding: 0.5rem 1rem; border-radius: 5px; color: white; font-weight: bold; }
   .signup-btn:hover { background: var(--palm-green); }
-  .submit-btn { cursor: pointer; background: var(--palm-green); border: none; padding: 0.4rem 0.8rem; border-radius: 5px; color: white; font-weight: bold; transition: background 0.2s; }
-  .submit-btn:hover { background: var(--mountain-clay); }
+  .submit-btn, .confirm-btn { 
+    cursor: pointer; 
+    background: var(--palm-green); 
+    border: none; 
+    padding: 0.4rem 0.8rem; 
+    border-radius: 5px; 
+    color: white; 
+    font-weight: bold; 
+    transition: background 0.2s; 
+  }
+  .submit-btn:hover, .confirm-btn:hover { background: var(--mountain-clay); }
   .cancel-btn { cursor: pointer; background: #ccc; border: none; padding: 0.8rem; border-radius: 5px; margin-top: 1rem; color: var(--dark-charcoal); }
-  .phone-link { color: var(--dark-charcoal); text-decoration: underline; }
+  .phone-link { color: var(--dark-charcoal); text-decoration: underline; font-family: monospace; }
 </style>
