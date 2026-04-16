@@ -33,7 +33,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
       <input type="hidden" name="venue" id="venue-input" />
       <input type="hidden" name="time" id="time-input" />
       <input type="text" name="name" placeholder="Name" required />
-      <input type="tel" name="phone" placeholder="Phone (e.g. 123-456-7890)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+      <input type="tel" name="phone" id="phone-input" placeholder="(123) 456-7890" required />
       <div class="modal-buttons">
         <button type="submit" class="signup-btn">Submit</button>
         <button type="button" id="close-modal" class="cancel-btn">Cancel</button>
@@ -42,6 +42,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   </div>
 </div>
 
+<script src="https://unpkg.com/imask"></script>
 <script>
   import { supabase } from '../lib/supabaseClient';
 
@@ -51,6 +52,12 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
   const venueInput = document.getElementById('venue-input') as HTMLInputElement;
   const timeInput = document.getElementById('time-input') as HTMLInputElement;
   const bookingInfo = document.getElementById('booking-info');
+  const phoneInput = document.getElementById('phone-input');
+
+  // Initialize Mask
+  const phoneMask = IMask(phoneInput, {
+    mask: '(000) 000-0000'
+  });
 
   document.querySelectorAll('.signup-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -72,7 +79,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
 
     const { error } = await supabase.from('bookings').insert({
       name: formData.get('name'),
-      phone: formData.get('phone'),
+      phone: phoneMask.unmaskedValue, // Submit the raw numbers
       day: day,
       venue: formData.get('venue'),
       time_slot: formData.get('time')
@@ -84,6 +91,7 @@ const slots = Array.from({ length: 9 }, (_, i) => `${12 + i}:00 - ${13 + i}:00`)
       alert('Booking successful!');
       modal.style.display = 'none';
       form.reset();
+      phoneMask.value = '';
     }
   });
 </script>
