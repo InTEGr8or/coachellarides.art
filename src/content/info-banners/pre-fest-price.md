@@ -2,6 +2,8 @@
 title: Pre-Festival Pricing
 ---
 
+## Pre-Festivial Pricing
+
 ### 7 Passenger Van
 
 | Mile Ranges | Price per Person per Mile | Min Price for Entire Vehicle |

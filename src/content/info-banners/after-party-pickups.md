@@ -2,6 +2,8 @@
 title: After Party Pick-ups Pricing
 ---
 
+## After Party Pick-ups Pricing
+
 ### 7 Passenger Van
 
 | Mile Ranges | Price per Person per Mile | Min Price for Entire Vehicle | Pick-up Time from Driver's Start Point |
