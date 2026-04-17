@@ -4,7 +4,7 @@ title: Pre-Festival Pricing
 
 ## Pre-Festivial Pricing
 
-### 7 Passenger Van
+### 6 Passenger Van
 
 | Mile Ranges | Price per Person per Mile | Min Price for Entire Vehicle |
 | :--- | :--- | :--- |
@@ -30,7 +30,7 @@ title: Pre-Festival Pricing
 | 20 - 25 | $2.25 | $225 |
 | 25 - 30 | $1.50 | $250 |
 
-### 15 Passenger Van
+### 14 Passenger Van
 
 | Mile Ranges | Price per Person per Mile | Min Price for Entire Vehicle |
 | :--- | :--- | :--- |

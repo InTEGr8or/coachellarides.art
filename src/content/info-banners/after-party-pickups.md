@@ -4,7 +4,7 @@ title: After Party Pick-ups Pricing
 
 ## After Party Pick-ups Pricing
 
-### 7 Passenger Van
+### 6 Passenger Van
 
 | Mile Ranges | Price per Person per Mile | Min Price for Entire Vehicle | Pick-up Time from Driver's Start Point |
 | :--- | :--- | :--- | :--- |
@@ -30,7 +30,7 @@ title: After Party Pick-ups Pricing
 | 20 - 25 | $2.25 | $225 | |
 | 25 - 30 | $1.50 | $250 | |
 
-### 15 Passenger Van
+### 14 Passenger Van
 
 | Mile Ranges | Price per Person per Mile | Min Price for Entire Vehicle | Pick-up Time from Driver's Start Point |
 | :--- | :--- | :--- | :--- |

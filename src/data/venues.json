@@ -1,7 +1,7 @@
 [
-  {"name": "SUV 1", "capacity": 7},
-  {"name": "SUV 2", "capacity": 7},
-  {"name": "SUV 3", "capacity": 7},
-  {"name": "SUV 4", "capacity": 7},
-  {"name": "Shuttle 1", "capacity": 15}
+  { "name": "SUV 1", "capacity": 6 },
+  { "name": "SUV 2", "capacity": 6 },
+  { "name": "SUV 3", "capacity": 6 },
+  { "name": "SUV 4", "capacity": 6 },
+  { "name": "Shuttle 1", "capacity": 14 }
 ]
