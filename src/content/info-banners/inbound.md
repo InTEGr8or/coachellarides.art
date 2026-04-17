@@ -17,6 +17,8 @@ title: Inbound Rides Information
 * Up to five miles from venue (see coverage map)
     * Click “Book” below to contact us and select your time slot
 
+**See below for pricing and scheduling**
+
 ### After Party Pick-ups
 
 * Based on Time* and mileage
@@ -24,3 +26,5 @@ title: Inbound Rides Information
     * Click “Book” below to contact us and select your time slot
 
 *Time for driver’s starting point to your pick-up plus per mileage pricing by the mile.
+
+**See below for pricing and scheduling**
