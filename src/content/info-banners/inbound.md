@@ -1,8 +1,10 @@
 ---
 title: TEXT 714.702.0627 for IMMEDIATE RIDES and RESPONSE
 ---
+### TEXT 714.702.0627 for IMMEDIATE RIDES and RESPONSE
+
 ### Inbound Rides Information
----
+
 
 ### Before the Show - Inbound rides (to North Ride Share – Lot 1D)
 
